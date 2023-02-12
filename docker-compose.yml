@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: mysql:5.7
+    volumes:
+      - ./db_data:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: wordpress
+      MYSQL_USER: wordpress
+      MYSQL_PASSWORD: password
+    platform: linux/x86_64
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    ports:
+      - "8000:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress
+      WORDPRESS_DB_PASSWORD: password
+      WORDPRESS_DB_NAME: wordpress
+    volumes:
+      - .wordpress/upload.ini:/usr/local/etc/php/conf.d/uploads.ini # Upload bigger files
+      - .wordpress/plugins:/var/www/html/wp-content/plugins
+      - .wordpress/themes:/var/www/html/wp-content/themes
+      - .wordpress/uploads:/var/www/html/wp-content/uploads
+volumes:
+  db_data:
