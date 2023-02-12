@@ -2,7 +2,9 @@
 
 > Docker compose WordPress template for local dev use
 
-Configures upload preferences and saves themes, plugins, uploads as well as the Database state.
+- Configures upload preferences
+- Saves themes, plugins, uploads as well as the Database state.
+- For ARM-M1
 
 ## Using
 
